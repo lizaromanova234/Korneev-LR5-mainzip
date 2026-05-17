@@ -1,37 +1,52 @@
-# The command that runs the program. If the interpreter field is set, it will have priority and this run command will do nothing
+# БЛОК НАСТРОЙКИ ЗАПУСКА ПРОГРАММЫ
+# Команда, которая запускает программу. Если поле interpreter установлено, 
+# оно будет иметь приоритет, и эта команда запуска не будет работать
 run = "python3 main.py"
 
-# The primary language of the repl. There can be others, though!
+# БЛОК ОСНОВНЫХ НАСТРОЕК ПРОЕКТА
+# Основной язык программирования в repl. Могут быть и другие языки
 language = "python3"
+# Точка входа в приложение (главный файл, с которого начинается выполнение)
 entrypoint = "main.py"
-# A list of globs that specify which files and directories should
-# be hidden in the workspace.
+# БЛОК СКРЫТЫХ ФАЙЛОВ И ПАПОК
+# Список glob-шаблонов, указывающих, какие файлы и директории 
+# должны быть скрыты в рабочей области
 hidden = ["venv", ".config", "**/__pycache__", "**/.mypy_cache", "**/*.pyc"]
+# БЛОК МОДУЛЕЙ ОКРУЖЕНИЯ
+# Модули (версии языка), используемые в проекте
 modules = ["python-3.10"]
 
-# Specifies which nix channel to use when building the environment.
+# БЛОК НАСТРОЕК NIX (ПАКЕТНЫЙ МЕНЕДЖЕР)
+# Указывает, какой канал nix использовать при сборке окружения
 [nix]
-channel = "stable-22_11"
-packages = ["gdb"]
+channel = "stable-22_11" # Стабильная версия канала от 22.11
+packages = ["gdb"]       # Дополнительные пакеты (gdb — отладчик)
 
+# БЛОК ПЕРЕМЕННЫХ ОКРУЖЕНИЯ
 [env]
+# Здесь можно определить переменные окружения
 
-# Enable unit tests. This is only supported for a few languages.
+# БЛОК НАСТРОЕК МОДУЛЬНОГО ТЕСТИРОВАНИЯ
+# Включить модульные тесты. Поддерживается только для нескольких языков
 [unitTest]
 language = "python3"
 
-# These are the files that need to be preserved when this 
-# language template is used as the base language template
-# for Python repos imported from GitHub
+# БЛОК НАСТРОЕК ДЛЯ ИМПОРТА ИЗ GITHUB
+# Эти файлы должны быть сохранены, когда данный языковой шаблон 
+# используется в качестве базового для Python-репозиториев, импортированных из GitHub
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config", "venv"]
 
+# БЛОК НАСТРОЕК РАЗВЁРТЫВАНИЯ (DEPLOYMENT)
 [deployment]
+# Команда для запуска приложения при развёртывании
 run = ["sh", "-c", "python3 main.py"]
 
+# БЛОК НАСТРОЕК ПОРТОВ
 [[ports]]
-localPort = 5000
-externalPort = 80
+localPort = 5000  # Внутренний порт приложения (Flask по умолчанию)
+externalPort = 80 # Внешний порт, доступный пользователям (стандартный HTTP порт)
 
+# БЛОК НАСТРОЕК РЕЖИМА ЭКСПЕРТА
 [agent]
-expertMode = true
+expertMode = true # Включает расширенный режим настройки окружения
